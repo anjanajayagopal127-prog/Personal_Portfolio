@@ -172,6 +172,66 @@ footer { border-top: 1px solid var(--line); padding: 28px 0; text-align: center;
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
 }
+/* My Learning Journey */
+.learning-journey {
+    padding: 70px 8%;
+}
+
+.learning-journey .journey-intro {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 35px;
+    line-height: 1.7;
+}
+
+.journey-timeline {
+    max-width: 800px;
+    margin: auto;
+    display: grid;
+    gap: 20px;
+}
+
+.journey-card {
+    padding: 24px;
+    border: 1px solid var(--border-color, #d8dce5);
+    border-radius: 16px;
+    background: var(--card-bg, rgba(128,128,128,0.08));
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.journey-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.journey-card h3 {
+    margin: 0 0 10px;
+}
+
+.journey-card p {
+    line-height: 1.7;
+    margin: 0;
+}
+
+.journey-tag {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(100,120,255,0.12);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+    .learning-journey {
+        padding: 45px 5%;
+    }
+
+    .journey-card {
+        padding: 18px;
+    }
+}
 </style>
 </head>
 
@@ -394,5 +454,60 @@ document.getElementById("form").onsubmit = e => {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
+<!-- My Learning Journey Section -->
+<section id="learning-journey" class="learning-journey">
+
+    <h2>My Learning Journey</h2>
+
+    <p class="journey-intro">
+        Every project helps me learn something new.
+        Here are some of the areas I am exploring
+        as a Computer Science Engineering student.
+    </p>
+
+    <div class="journey-timeline">
+
+        <article class="journey-card">
+            <span class="journey-tag">Foundation</span>
+            <h3>HTML & CSS</h3>
+            <p>
+                Learning to create structured web pages,
+                style layouts, and build responsive websites
+                for different screen sizes.
+            </p>
+        </article>
+
+        <article class="journey-card">
+            <span class="journey-tag">Programming</span>
+            <h3>JavaScript</h3>
+            <p>
+                Exploring interactive web features,
+                event handling, form validation, and
+                dynamic website behaviour.
+            </p>
+        </article>
+
+        <article class="journey-card">
+            <span class="journey-tag">Version Control</span>
+            <h3>Git & GitHub</h3>
+            <p>
+                Practising repositories, commits, branches,
+                merging, and publishing projects using
+                Git and GitHub.
+            </p>
+        </article>
+
+        <article class="journey-card">
+            <span class="journey-tag">Next Goal</span>
+            <h3>Building More Projects</h3>
+            <p>
+                My goal is to strengthen my programming
+                fundamentals and develop useful projects
+                that solve practical problems.
+            </p>
+        </article>
+
+    </div>
+</section>
 </body>
 </html>
