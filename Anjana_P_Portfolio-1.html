@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anjana P | Portfolio</title>
+<meta name="description" content="Anjana P — second-year B.Tech student sharing learning projects, technical skills and academic interests.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@500;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- Design tokens (edit colors here) ---------- */
+:root {
+  --bg: #f3f6fc;
+  --surface: #ffffff;
+  --ink: #161a3a;
+  --muted: #5b617f;
+  --line: #d9dff0;
+  --accent: #3d5afe;
+  --accent-ink: #ffffff;
+  --pop: #ff6b5b;
+  --radius: 14px;
+  --head: "Sora", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, sans-serif;
+}
+:root[data-theme="dark"] {
+  --bg: #0e1124;
+  --surface: #171b36;
+  --ink: #eef0ff;
+  --muted: #a3a9cc;
+  --line: #2a3060;
+  --accent: #7b8cff;
+  --accent-ink: #0e1124;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  font-family: var(--body); background: var(--bg); color: var(--ink);
+  line-height: 1.65; transition: background .3s, color .3s;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--pop); outline-offset: 3px; }
+.wrap { width: min(1080px, 92%); margin-inline: auto; }
+section { padding: 88px 0; }
+h1, h2, h3 { font-family: var(--head); line-height: 1.15; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 12px; }
+.lead { color: var(--muted); max-width: 60ch; margin-bottom: 40px; }
+
+/* progress bar */
+#progress { position: fixed; top: 0; left: 0; height: 4px; width: 0; background: var(--pop); z-index: 100; }
+
+/* nav */
+header {
+  position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+}
+nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { font-family: var(--head); font-weight: 800; text-decoration: none; font-size: 1.2rem; }
+.logo span { color: var(--accent); }
+.links { display: flex; gap: 26px; list-style: none; align-items: center; }
+.links a { text-decoration: none; color: var(--muted); font-weight: 500; }
+.links a:hover, .links a.active { color: var(--accent); }
+.icon-btn {
+  background: var(--surface); border: 1px solid var(--line); color: var(--ink);
+  width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+}
+#menuBtn { display: none; }
+
+/* hero */
+.hero { padding: 110px 0 90px; }
+.hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.8rem); font-weight: 800; letter-spacing: -.03em; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.role { font-family: var(--head); font-size: 1.3rem; margin: 18px 0 8px; min-height: 2em; }
+.cursor { display: inline-block; width: 3px; height: 1.1em; background: var(--pop); margin-left: 3px; vertical-align: -3px; animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.btns { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+.btn {
+  display: inline-block; padding: 13px 26px; border-radius: 999px; text-decoration: none;
+  font-weight: 700; border: 2px solid var(--accent); transition: transform .2s;
+}
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { color: var(--accent); }
+.btn:hover { transform: translateY(-3px); }
+
+/* code-card: the memorable element */
+.code-card {
+  background: var(--ink); color: #dfe4ff; border-radius: var(--radius); padding: 22px;
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92rem; line-height: 1.8;
+  box-shadow: 10px 10px 0 var(--accent);
+}
+:root[data-theme="dark"] .code-card { background: #0a0c1b; }
+.code-card .dots { display: flex; gap: 7px; margin-bottom: 14px; }
+.code-card .dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--pop); }
+.code-card .dots i:nth-child(2) { background: #ffd166; }
+.code-card .dots i:nth-child(3) { background: #6ee7a8; }
+.k { color: #8fa0ff; } .s { color: #ffb4a8; } .c { color: #7d84b5; }
+
+/* about + stats */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; text-align: center; }
+.stat b { display: block; font-family: var(--head); font-size: 2.2rem; color: var(--accent); }
+.stat span { color: var(--muted); font-size: .92rem; }
+
+/* timeline (qualifications: this really is a sequence) */
+.timeline { border-left: 3px solid var(--line); padding-left: 28px; display: grid; gap: 28px; }
+.t-item { position: relative; }
+.t-item::before {
+  content: ""; position: absolute; left: -38px; top: 6px; width: 14px; height: 14px;
+  border-radius: 50%; background: var(--accent); border: 3px solid var(--bg);
+}
+.t-item time { color: var(--pop); font-weight: 700; font-size: .9rem; }
+.t-item h3 { font-size: 1.15rem; margin: 2px 0; }
+.t-item p { color: var(--muted); }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 48px; }
+.skill-top { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 6px; }
+.bar { height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--pop)); border-radius: 99px; transition: width 1.2s ease; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.chip { padding: 7px 16px; border: 1px solid var(--line); background: var(--surface); border-radius: 99px; font-size: .92rem; }
+
+/* projects */
+.filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.filter { border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 8px 20px; border-radius: 99px; cursor: pointer; font: inherit; font-weight: 500; }
+.filter.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .25s, border-color .25s; }
+.card:hover { transform: translateY(-6px); border-color: var(--accent); }
+.card .thumb { height: 150px; display: grid; place-items: center; font-size: 3rem; background: linear-gradient(135deg, var(--accent), var(--pop)); }
+.card .body { padding: 20px; }
+.card h3 { margin-bottom: 6px; }
+.card p { color: var(--muted); font-size: .96rem; margin-bottom: 14px; }
+.card a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.card.hide { display: none; }
+
+/* contact */
+.contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; }
+.info { list-style: none; display: grid; gap: 14px; color: var(--muted); }
+.info a { color: var(--accent); }
+form { display: grid; gap: 16px; }
+label { font-weight: 700; font-size: .92rem; display: grid; gap: 6px; }
+input, textarea {
+  font: inherit; padding: 13px 15px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); color: var(--ink);
+}
+textarea { min-height: 130px; resize: vertical; }
+.err { color: var(--pop); font-size: .85rem; font-weight: 500; min-height: 1em; }
+#formMsg { font-weight: 700; color: var(--accent); }
+
+footer { border-top: 1px solid var(--line); padding: 28px 0; text-align: center; color: var(--muted); }
+#toTop { position: fixed; right: 22px; bottom: 22px; opacity: 0; pointer-events: none; transition: opacity .3s; }
+#toTop.show { opacity: 1; pointer-events: auto; }
+
+/* reveal (used once per section, only on scroll) */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s; }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 820px) {
+  .hero-grid, .about-grid, .contact-grid, .skills { grid-template-columns: 1fr; }
+  #menuBtn { display: inline-block; }
+  .links {
+    position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; background: var(--bg);
+    padding: 20px; border-bottom: 1px solid var(--line); display: none;
+  }
+  .links.open { display: flex; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+
+<body>
+<div id="progress"></div>
+
+<header>
+  <nav class="wrap" aria-label="Main">
+    <a href="#home" class="logo">Anjana<span> P</span></a>
+    <ul class="links" id="links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Qualifications</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode">🌙</button></li>
+    </ul>
+    <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  </nav>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <p>Hello, I'm</p>
+      <h1>Anjana <em>P</em></h1>
+      <div class="role"><span id="typed"></span><span class="cursor"></span></div>
+      <p class="lead">I’m a second-year B.Tech student exploring programming, web development and problem-solving through small academic and personal projects.</p>
+      <div class="btns">
+        <a href="#projects" class="btn primary">View my projects</a>
+        <a href="#contact" class="btn ghost">Contact me</a>
+      </div>
+    </div>
+    <div class="code-card" aria-hidden="true">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div><span class="k">const</span> me = {</div>
+      <div>&nbsp;&nbsp;name: <span class="s">"Anjana P"</span>,</div>
+      <div>&nbsp;&nbsp;role: <span class="s">"B.Tech Student"</span>,</div>
+      <div>&nbsp;&nbsp;learning: [<span class="s">"C"</span>, <span class="s">"HTML"</span>, <span class="s">"CSS"</span>, <span class="s">"JavaScript"</span>],</div>
+      <div>&nbsp;&nbsp;status: <span class="s">"Learning & building"</span></div>
+      <div>};</div>
+      <div class="c">// let's build something</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap about-grid reveal">
+    <div>
+      <h2>About me</h2>
+      <p class="lead" style="margin-bottom:16px">I’m Anjana P, a second-year B.Tech student at Jawaharlal College of Engineering and Technology. I’m building my foundation in programming and web development through coursework and beginner-friendly projects.</p>
+      <p style="color:var(--muted)">I enjoy learning new tools, breaking problems into smaller steps and working with others. My current goal is to strengthen my coding fundamentals and create useful projects as I learn.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b data-count="3">0</b><span>Practice projects</span></div>
+      <div class="stat"><b data-count="4">0</b><span>Core technologies</span></div>
+      <div class="stat"><b data-count="2">0</b><span>B.Tech year</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUALIFICATIONS -->
+<section id="education">
+  <div class="wrap reveal">
+    <h2>Qualifications</h2>
+    <p class="lead">My current academic journey and learning focus.</p>
+    <div class="timeline">
+      <div class="t-item"><time>Present</time><h3>Bachelor of Technology (B.Tech)</h3><p>Jawaharlal College of Engineering and Technology · Second year</p></div>
+      <div class="t-item"><time>Current learning</time><h3>Programming Fundamentals</h3><p>Practising C programming, problem-solving and data structures concepts through coursework.</p></div>
+      <div class="t-item"><time>Ongoing</time><h3>Web Development Basics</h3><p>Learning to create responsive pages using HTML, CSS and beginner-level JavaScript.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap reveal">
+    <h2>Skills</h2>
+    <p class="lead">Skills I’m learning and practising as a second-year student.</p>
+    <div class="skills" id="skillList">
+      <div><div class="skill-top"><span>HTML</span><span>70%</span></div><div class="bar"><i data-w="70"></i></div></div>
+      <div><div class="skill-top"><span>CSS</span><span>60%</span></div><div class="bar"><i data-w="60"></i></div></div>
+      <div><div class="skill-top"><span>C programming</span><span>60%</span></div><div class="bar"><i data-w="60"></i></div></div>
+      <div><div class="skill-top"><span>JavaScript basics</span><span>40%</span></div><div class="bar"><i data-w="40"></i></div></div>
+    </div>
+    <div class="chips">
+      <span class="chip">Git & GitHub basics</span><span class="chip">VS Code</span><span class="chip">Responsive layouts</span>
+      <span class="chip">Problem solving</span><span class="chip">Teamwork</span><span class="chip">Data structures fundamentals</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap reveal">
+    <h2>Projects</h2>
+    <p class="lead">Small learning projects that demonstrate my current skills. I’ll add repository links as I publish each project.</p>
+    <div class="filters" id="filters">
+      <button class="filter on" data-f="all">All</button>
+      <button class="filter" data-f="web">Websites</button>
+      <button class="filter" data-f="js">JavaScript apps</button>
+      <button class="filter" data-f="ui">UI designs</button>
+    </div>
+    <div class="grid">
+      <article class="card" data-c="web"><div class="thumb">📚</div><div class="body"><h3>Student Study Planner</h3><p>A simple responsive page to organise subjects, study goals and a weekly timetable using HTML and CSS.</p><a href="#contact">Project details on request</a></div></article>
+      <article class="card" data-c="js"><div class="thumb">✅</div><div class="body"><h3>Task Tracker</h3><p>A beginner JavaScript app concept for adding tasks, marking them complete and removing them.</p><a href="#contact">Project details on request</a></div></article>
+      <article class="card" data-c="js"><div class="thumb">🧮</div><div class="body"><h3>Basic Calculator</h3><p>A practice project for arithmetic operations and JavaScript event handling.</p><a href="#contact">Project details on request</a></div></article>
+      <article class="card" data-c="ui"><div class="thumb">💻</div><div class="body"><h3>Personal Portfolio</h3><p>This portfolio website, built to practise page structure, responsive styling and basic JavaScript interactions.</p><a href="#home">You’re viewing it</a></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap contact-grid reveal">
+    <div>
+      <h2>Contact</h2>
+      <p class="lead">Want to connect about student projects, learning opportunities or collaboration? Send me a message.</p>
+      <ul class="info">
+        <li>Email: <a href="mailto:you@example.com">@anjanap12gmail.com</a></li>
+        <li>GitHub: <a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/" target="_blank" rel="noopener"></a>https://www.linkedin.com/</li>
+      </ul>
+    </div>
+    <form id="form" novalidate>
+      <label>Name<input id="name" type="text" autocomplete="name"><span class="err" id="e-name"></span></label>
+      <label>Email<input id="email" type="email" autocomplete="email"><span class="err" id="e-email"></span></label>
+      <label>Message<textarea id="msg"></textarea><span class="err" id="e-msg"></span></label>
+      <button class="btn primary" type="submit">Send message</button>
+      <p id="formMsg" role="status"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© <span id="year"></span> Anjana P. Built with HTML, CSS and JavaScript.</div></footer>
+<button class="icon-btn" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+/* ---------- Theme (remembered between visits) ---------- */
+const root = document.documentElement, themeBtn = document.getElementById("themeBtn");
+function setTheme(t) {
+  root.dataset.theme = t; themeBtn.textContent = t === "dark" ? "☀️" : "🌙";
+  try { localStorage.setItem("theme", t); } catch (e) {}
+}
+let saved = null; try { saved = localStorage.getItem("theme"); } catch (e) {}
+setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+themeBtn.onclick = () => setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+
+/* ---------- Mobile menu ---------- */
+const links = document.getElementById("links"), menuBtn = document.getElementById("menuBtn");
+menuBtn.onclick = () => menuBtn.setAttribute("aria-expanded", links.classList.toggle("open"));
+links.querySelectorAll("a").forEach(a => a.onclick = () => { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); });
+
+/* ---------- Typing effect (edit the roles) ---------- */
+const roles = ["Second-Year B.Tech Student", "Aspiring Developer", "Learning by Building"];
+const typed = document.getElementById("typed");
+let r = 0, c = 0, del = false;
+(function type() {
+  const word = roles[r];
+  typed.textContent = word.slice(0, del ? --c : ++c);
+  let wait = del ? 45 : 95;
+  if (!del && c === word.length) { del = true; wait = 1400; }
+  else if (del && c === 0) { del = false; r = (r + 1) % roles.length; wait = 350; }
+  setTimeout(type, wait);
+})();
+
+/* ---------- Scroll: progress bar, back-to-top, active link ---------- */
+const prog = document.getElementById("progress"), toTop = document.getElementById("toTop");
+const navLinks = [...links.querySelectorAll("a")], sections = navLinks.map(a => document.querySelector(a.getAttribute("href")));
+addEventListener("scroll", () => {
+  const h = document.documentElement;
+  prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
+  toTop.classList.toggle("show", h.scrollTop > 500);
+  let cur = 0; sections.forEach((s, i) => { if (s.getBoundingClientRect().top < 140) cur = i; });
+  navLinks.forEach((a, i) => a.classList.toggle("active", i === cur && h.scrollTop > 200));
+}, { passive: true });
+toTop.onclick = () => scrollTo({ top: 0 });
+
+/* ---------- Reveal sections, animate skill bars and counters ---------- */
+function countUp(el) {
+  const target = +el.dataset.count; let n = 0;
+  const t = setInterval(() => { n++; el.textContent = n + "+"; if (n >= target) clearInterval(t); }, 90);
+}
+const io = new IntersectionObserver(entries => entries.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add("in");
+  e.target.querySelectorAll("[data-w]").forEach(b => b.style.width = b.dataset.w + "%");
+  e.target.querySelectorAll("[data-count]").forEach(countUp);
+  io.unobserve(e.target);
+}), { threshold: .2 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+/* ---------- Project filter ---------- */
+document.getElementById("filters").onclick = e => {
+  const btn = e.target.closest(".filter"); if (!btn) return;
+  document.querySelectorAll(".filter").forEach(b => b.classList.toggle("on", b === btn));
+  document.querySelectorAll(".card").forEach(card =>
+    card.classList.toggle("hide", btn.dataset.f !== "all" && card.dataset.c !== btn.dataset.f));
+};
+
+/* ---------- Contact form validation (opens the visitor's email app) ---------- */
+const MY_EMAIL = "you@example.com"; // replace with your real email address
+document.getElementById("form").onsubmit = e => {
+  e.preventDefault();
+  const name = document.getElementById("name"), email = document.getElementById("email"), msg = document.getElementById("msg");
+  const set = (id, text) => (document.getElementById("e-" + id).textContent = text);
+  let ok = true;
+  set("name", name.value.trim() ? "" : (ok = false, "Enter your name."));
+  set("email", /^\S+@\S+\.\S+$/.test(email.value) ? "" : (ok = false, "Enter a valid email address."));
+  set("msg", msg.value.trim().length >= 10 ? "" : (ok = false, "Write at least 10 characters."));
+  if (!ok) return;
+  location.href = `mailto:${MY_EMAIL}?subject=${encodeURIComponent("Portfolio message from " + name.value)}&body=${encodeURIComponent(msg.value + "\n\n" + email.value)}`;
+  document.getElementById("formMsg").textContent = "Opening your email app. Thank you!";
+  e.target.reset();
+};
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
