@@ -82,7 +82,7 @@ No build tools or package installation are required. The portfolio is a
 standalone HTML file.
 
 1.  Download or clone the project files.
-2.  Keep `Anjana_P_Portfolio-1.html` in a folder on your device.
+2.  Keep `index.html` in a folder on your device.
 3.  Open the file in a web browser to view the website.
 4.  To edit it, open the HTML file in Visual Studio Code, Acode, or
     another code editor.
@@ -90,7 +90,7 @@ standalone HTML file.
 
 ## Customisation
 
-Before publishing, review these items in `Anjana_P_Portfolio-1.html`:
+Before publishing, review these items in `index.html`:
 
 -   **Email address:** Replace `you@example.com` with your real email
     address in both the contact section and the `MY_EMAIL` JavaScript
@@ -112,8 +112,8 @@ Before publishing, review these items in `Anjana_P_Portfolio-1.html`:
 
 ``` text
 portfolio/
-├── Anjana_P_Portfolio-1.html
-└── README-2.md
+├── index.html
+└── README.md
 ```
 
 If you rename the HTML file, update this structure in the README
